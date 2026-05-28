@@ -1,0 +1,90 @@
+// TẠO BỘ DỮ LIỆU LỚN
+// =======================
+let bigPatientData = [];
+
+for (let i = 1; i <= 100000; i++) {
+    bigPatientData.push({
+        id: "P" + String(i).padStart(6, "0"),
+        name: "Patient " + i,
+        status: i % 5 === 0 ? "critical" : "stable",
+        age: 20 + (i % 60),
+        heartRate: 60 + (i % 80)
+    });
+}
+
+console.log("========== KIỂM TRA DỮ LIỆU ==========");
+console.log("Tổng số bệnh nhân:", bigPatientData.length);
+
+console.log("\n========== TEST SEARCH ==========");
+let foundPatient = findPatientById(bigPatientData, "P050000");
+
+console.log("Kết quả tìm kiếm:");
+console.log(foundPatient);
+
+console.log("Kiểm tra undefined:", foundPatient === undefined);
+console.log("Kiểm tra null:", foundPatient === null);
+
+console.log("\n========== TEST FILTER ==========");
+let criticalPatients = filterCriticalPatients(bigPatientData);
+
+console.log("Số bệnh nhân critical:", criticalPatients.length);
+console.log("Bệnh nhân critical đầu tiên:");
+console.log(criticalPatients[0]);
+
+console.log(
+    "Có undefined trong mảng không:",
+    criticalPatients.includes(undefined)
+);
+
+console.log("\n========== TEST AGGREGATE ==========");
+let stats = calculateHospitalStats(bigPatientData);
+
+console.log(stats);
+
+console.log("averageHeartRate có bị NaN không:",
+    Number.isNaN(stats.averageHeartRate)
+);
+
+console.log("totalHeartRate có bị NaN không:",
+    Number.isNaN(stats.totalHeartRate)
+);
+
+console.log("criticalPatients có undefined không:",
+    stats.criticalPatients === undefined
+);
+
+console.log("\n========== KIỂM TRA HOÀN TẤT ==========");
+console.log("Không phát hiện NaN hay undefined.");
+
+//Kết quả
+
+
+
+
+
+
+
+
+========== KIỂM TRA DỮ LIỆU ==========
+Tổng số bệnh nhân: 100000
+
+========== TEST SEARCH ==========
+Kết quả tìm kiếm:
+{id: 'P050000', name: 'Patient 50000', status: 'critical', age: 40, heartRate: 60}
+Kiểm tra undefined: false
+Kiểm tra null: false
+
+========== TEST FILTER ==========
+Số bệnh nhân critical: 20000
+Bệnh nhân critical đầu tiên:
+{id: 'P000005', name: 'Patient 5', status: 'critical', age: 25, heartRate: 65}
+Có undefined trong mảng không: false
+
+========== TEST AGGREGATE ==========
+{totalPatients: 100000, criticalPatients: 20000, totalHeartRate: 9950000, averageHeartRate: 99.5}
+averageHeartRate có bị NaN không: false
+totalHeartRate có bị NaN không: false
+criticalPatients có undefined không: false
+
+========== KIỂM TRA HOÀN TẤT ==========
+Không phát hiện NaN hay undefined.
